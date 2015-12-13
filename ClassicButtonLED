@@ -1,0 +1,26 @@
+//LED with Button Sketch
+
+//Sensor & Actuator Assignment
+const int button = 7;
+const int LED = 13;
+
+//Defining variable "val"
+int val = 0;
+
+void setup() {
+  // INPUT/OUTPUT Assignments
+pinMode(LED,OUTPUT);
+pinMode(button,INPUT);
+}
+
+void loop() {
+  // Reads the INPUT from the button, and assigns it to "val"
+  val = digitalRead(button);
+
+  // Checks button input, treats LED accordingly.
+  if (val==HIGH){
+    digitalWrite(LED,HIGH);
+   }else
+   {digitalWrite(LED,LOW);
+   }
+ }
