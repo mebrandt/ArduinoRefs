@@ -1,0 +1,70 @@
+//Loads the LEDBackpack Libraries into the sketch
+#include <Wire.h>
+#include "Adafruit_LEDBackpack.h"
+#include "Adafruit_GFX.h"
+
+//Defines the LEDBackpacks variables
+Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
+
+//Assigning variables to the LED Output
+int LLDigit = 0;
+int LMDigit = 0;
+int RMDigit = 0; 
+int RRDigit = 0;
+
+void setup() {
+  alpha4.begin(0x70);  // pass in the address
+}
+
+void loop() {
+   
+  // sets the specified digit to the LED
+  alpha4.writeDigitAscii(0, LLDigit);
+  alpha4.writeDigitAscii(1, LMDigit);
+  alpha4.writeDigitAscii(2, RMDigit);
+  alpha4.writeDigitAscii(3, RRDigit);
+
+  //LED display right side timer code (seconds) 
+  //LED Digit 3
+  delay(1000);
+  RRDigit = RRDigit++;
+
+  //LED digit 2
+  switch(RRDigit){
+   case 10:
+    RMDigit = RMDigit++;
+    RRDigit = 0;
+   break;
+  }
+
+  //LED display left side timer code (minutes)
+  //LED digit 1
+  switch(RMDigit){
+    case 6:
+     LMDigit = LMDigit++;
+     RMDigit = 0;
+    break;
+   }
+
+   //LED digit 0  
+   switch(LMDigit) {
+    case 10:
+     LLDigit = LLDigit++;
+     LMDigit = 0;
+    break;
+   }
+
+  // LED Display overflow (Automatic reset)
+  switch(LLDigit) {
+    case 10:
+     RRDigit = 0;
+     RMDigit = 0;
+     LMDigit = 0;
+     LLDigit = 0;
+    break;
+   }
+   
+  // Writes out the code
+  alpha4.writeDisplay();
+
+}
