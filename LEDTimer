@@ -19,20 +19,20 @@ void setup() {
 void loop() {
    
   // sets the specified digit to the LED
-  alpha4.writeDigitAscii(0, LLDigit);
-  alpha4.writeDigitAscii(1, LMDigit);
-  alpha4.writeDigitAscii(2, RMDigit);
-  alpha4.writeDigitAscii(3, RRDigit);
+  alpha4.writeDigitAscii(0, LLDigit + '0');
+  alpha4.writeDigitAscii(1, LMDigit + '0', 0x4000);
+  alpha4.writeDigitAscii(2, RMDigit + '0');
+  alpha4.writeDigitAscii(3, RRDigit + '0');
 
   //LED display right side timer code (seconds) 
   //LED Digit 3
   delay(1000);
-  RRDigit = RRDigit++;
+  RRDigit = ++RRDigit;
 
   //LED digit 2
   switch(RRDigit){
    case 10:
-    RMDigit = RMDigit++;
+    RMDigit = ++RMDigit;
     RRDigit = 0;
    break;
   }
@@ -41,7 +41,7 @@ void loop() {
   //LED digit 1
   switch(RMDigit){
     case 6:
-     LMDigit = LMDigit++;
+     LMDigit = ++LMDigit;
      RMDigit = 0;
     break;
    }
@@ -49,7 +49,7 @@ void loop() {
    //LED digit 0  
    switch(LMDigit) {
     case 10:
-     LLDigit = LLDigit++;
+     LLDigit = ++LLDigit;
      LMDigit = 0;
     break;
    }
