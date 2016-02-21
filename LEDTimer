@@ -14,6 +14,24 @@ int RRDigit = 0;
 
 void setup() {
   alpha4.begin(0x70);  // pass in the address
+  
+  // Example method for parsing an int (e.g. millis()) into individual digits for display on 7-segment LEDS. (gp)
+  Serial.begin(9600);
+    int num = 3456;
+
+  int alpha0 = num % 10;
+  int alpha1 = (num / 10) % 10;
+  int alpha2 = (num / 100) % 10;
+  int alpha3 = (num / 1000) % 10;
+
+  Serial.println(num);
+  Serial.println(alpha0);
+  Serial.println(alpha1);
+  Serial.println(alpha2);
+  Serial.println(alpha3);
+  // End example.
+  
+  
 }
 
 void loop() {
